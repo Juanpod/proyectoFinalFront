@@ -1,0 +1,120 @@
+.gestionar-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.gestionar-buttons button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    width: 200px; /* Ajusta el ancho según sea necesario */
+}
+.gestionar-wrapper{
+    width: 100%;
+}
+
+.gestionar-buttons button:hover {
+    background-color: #555;
+}
+.gestionar-buttons ul {
+    list-style-type: none; /* Esto elimina los puntos de las listas */
+    
+}
+
+
+
+/* Asegura que la tabla tenga el 100% del ancho de la pantalla */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Hace que las líneas de las celdas se unan */
+    margin-top: 20px;
+}
+
+/* Define las líneas de la tabla */
+table, th, td {
+    border: 1px solid black;
+    
+}
+
+/* Centra el texto y agrega algo de padding a las celdas */
+th, td {
+    text-align: left;
+    padding: 8px;
+    
+}
+
+
+/* Estilo para los botones dentro de la tabla */
+
+
+/* Cambia el color del botón al pasar el cursor */
+td button:hover {
+    background-color: #45a049;
+}
+
+
+
+/* Estilo para cuando hay un error */
+.error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+td .button-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+/* Estilo para los botones dentro de la tabla */
+td button {
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px; /* Ajusta el tamaño del texto según sea necesario */
+}
+
+form {
+    background-color: #3f3e3e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+
+h2 {
+    text-align: center;
+   
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+
