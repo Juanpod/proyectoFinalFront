@@ -67,7 +67,7 @@ const Gestionar = () => {
                         </div>
                     }
                 />
-                <Route path="equipos" element={<GestionarEquipos />} />
+                <Route path="equipos/*" element={<GestionarEquipos />} />
                 <Route
                     path="tiposEquipos/*"
                     element={<GestionarTiposEquipos />}

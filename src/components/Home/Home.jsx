@@ -5,7 +5,7 @@ import { isTokenExpired } from "../isTokenExpired/isTokenExpired";
 import Inicio from "../Inicio/Inicio";
 import Perfil from "../Perfil/Perfil";
 import ConsultarTickets from "../ConsultarTickets/ConsultarTickets";
-import CrearTicket from "../Gestionar/GestionarTickets/CrearTicket/CrearTicket";
+import CrearTicket from "../CrearTicket/CrearTicket";
 import Gestionar from "../Gestionar/Gestionar";
 import { jwtDecode } from "jwt-decode";
 import AdminRoute from "../AdminRoute/AdminRoute";
@@ -15,6 +15,7 @@ const Home = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [isResolutor, setResolutor] = useState(false);
     const [isUser, setUser] = useState(false);
+    const [nombreUsuario, setNombreUsuario] = useState("");
 
     const Usuario = 1;
     const Administrador = 2;
@@ -39,6 +40,7 @@ const Home = () => {
                 console.log("Token Valido");
                 const decodedToken = jwtDecode(token);
                 console.log(decodedToken);
+                setNombreUsuario(decodedToken.nombre);
                 if (decodedToken.idRol === Administrador) {
                     setIsAdmin(true);
                     console.log("Es Admin", isAdmin);
@@ -56,7 +58,7 @@ const Home = () => {
             console.log("No hay token");
             navigate("/login");
         }
-    }, [isAdmin]);
+    }, [isAdmin, isResolutor, isUser]);
 
     return (
         <div className="home-wrapper">
@@ -69,7 +71,11 @@ const Home = () => {
                     </li>
                     <li>
                         <button onClick={() => navigate("/home/perfil")}>
-                            Perfil
+                            {isAdmin
+                                ? "Administrador"
+                                : isResolutor
+                                ? "Resolutor"
+                                : "Usuario"}
                         </button>
                     </li>
                     <li>
@@ -79,12 +85,12 @@ const Home = () => {
                             Consultar Tickets
                         </button>
                     </li>
-                    {isUser && (
+                    {(isUser || isAdmin) && (
                         <li>
                             <button
                                 onClick={() => navigate("/home/crearTicket")}
                             >
-                                Solicitar Soporte Técnico
+                                Crear Ticket
                             </button>
                         </li>
                     )}
@@ -102,7 +108,7 @@ const Home = () => {
                     </li>
                 </ul>
             </nav>
-
+            <p>Bienvenido, {nombreUsuario}.</p>
             <div className="content">
                 <Routes>
                     <Route path="inicio" element={<Inicio />} />

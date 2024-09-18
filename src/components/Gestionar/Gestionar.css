@@ -117,4 +117,70 @@ form input[type="text"] {
     font-size: 16px;
 }
 
+option {
+    padding: 10px; 
+    background-color: #fff;
+    color: #333; 
+}
+
+select {
+    width: 100%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border-radius: 5px;
+    border: 1px solid #ccc; 
+    background-color: #f9f9f9;
+    color: #333; 
+    
+    
+    
+}
+
+/* Contenedor principal de los detalles */
+.elemento-detalles {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Título principal */
+.elemento-detalles h2 {
+    
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Estilo para las etiquetas fuertes */
+.elemento-detalles p strong {
+    
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Estilo para los párrafos que contienen la información */
+.elemento-detalles p {
+    margin: 10px 0;
+    font-size: 18px;
+    
+}
+
+/* Añadir un estilo de error si existe un error */
+
+
+/* Personalización del contenedor */
+.elemento-detalles div {
+    padding: 10px 0;
+    
+}
+
+/* Mejorar el aspecto del último elemento (sin borde inferior) */
+.elemento-detalles div:last-child {
+    border-bottom: none;
+}
+
 
