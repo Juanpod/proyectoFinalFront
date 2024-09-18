@@ -102,25 +102,29 @@ const ListadoUsuarios = () => {
                                         Ver detalle
                                     </button>
                                     {/* Botón para actualizar*/}
-                                    <button
-                                        className="update-button"
-                                        onClick={() =>
-                                            navigate(
-                                                `actualizar/${usuario.idUsuario}`
-                                            )
-                                        }
-                                    >
-                                        Actualizar
-                                    </button>
+                                    {usuario.idUsuario !== 1 && (
+                                        <button
+                                            className="update-button"
+                                            onClick={() =>
+                                                navigate(
+                                                    `actualizar/${usuario.idUsuario}`
+                                                )
+                                            }
+                                        >
+                                            Actualizar
+                                        </button>
+                                    )}
                                     {/* Botón para eliminar*/}
-                                    <button
-                                        className="delete-button"
-                                        onClick={() =>
-                                            handleDelete(usuario.idUsuario)
-                                        }
-                                    >
-                                        Eliminar
-                                    </button>
+                                    {usuario.idUsuario !== 1 && (
+                                        <button
+                                            className="delete-button"
+                                            onClick={() =>
+                                                handleDelete(usuario.idUsuario)
+                                            }
+                                        >
+                                            Eliminar
+                                        </button>
+                                    )}
                                 </div>
                             </td>
                         </tr>

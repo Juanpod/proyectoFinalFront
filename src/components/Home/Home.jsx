@@ -1,4 +1,4 @@
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { Link, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Home.css";
 import { isTokenExpired } from "../isTokenExpired/isTokenExpired";
@@ -9,6 +9,7 @@ import CrearTicket from "../CrearTicket/CrearTicket";
 import Gestionar from "../Gestionar/Gestionar";
 import { jwtDecode } from "jwt-decode";
 import AdminRoute from "../AdminRoute/AdminRoute";
+import ListadoUsuarios from "../Gestionar/GestionarUsuarios/ListadoUsuarios";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -16,10 +17,11 @@ const Home = () => {
     const [isResolutor, setResolutor] = useState(false);
     const [isUser, setUser] = useState(false);
     const [nombreUsuario, setNombreUsuario] = useState("");
+    const [idUsuario, setIdUsuario] = useState("");
 
-    const Usuario = 1;
-    const Administrador = 2;
-    const Resolutor = 3;
+    const Administrador = 1;
+    const Resolutor = 2;
+    const Usuario = 3;
 
     const handleLogout = () => {
         if (window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
@@ -41,6 +43,7 @@ const Home = () => {
                 const decodedToken = jwtDecode(token);
                 console.log(decodedToken);
                 setNombreUsuario(decodedToken.nombre);
+                setIdUsuario(decodedToken.idUsuario);
                 if (decodedToken.idRol === Administrador) {
                     setIsAdmin(true);
                     console.log("Es Admin", isAdmin);
@@ -114,8 +117,14 @@ const Home = () => {
                     <Route path="inicio" element={<Inicio />} />
                     <Route path="perfil" element={<Perfil />} />
                     <Route
-                        path="consultarTickets"
-                        element={<ConsultarTickets />}
+                        path="consultarTickets/*"
+                        element={
+                            <ConsultarTickets
+                                isUser={isUser}
+                                isAdmin={isAdmin}
+                                idUsuario={idUsuario}
+                            />
+                        }
                     />
                     <Route path="crearTicket" element={<CrearTicket />} />
                     <Route
@@ -127,6 +136,7 @@ const Home = () => {
                             />
                         }
                     />
+                    <Route path="*" element={<Navigate to="/home" />} />
                 </Routes>
             </div>
         </div>

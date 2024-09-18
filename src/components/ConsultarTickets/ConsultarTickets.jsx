@@ -1,8 +1,11 @@
-import "./ConsultarTickets.css";
-import { useEffect } from "react";
+import "../Gestionar/Gestionar.css";
+import { useEffect, useState } from "react";
 import { verificarSesion } from "../verificarSesion/verificarSesion";
-import { useNavigate } from "react-router-dom";
-const ConsultarTickets = () => {
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import ListadoTickets from "./ListadoTickets";
+import ActualizarTicket from "./ActualizarTicket";
+import DetalleTicket from "./DetalleTicket";
+const ConsultarTickets = ({ isAdmin, isUser, idUsuario }) => {
     const navigate = useNavigate();
     useEffect(() => {
         console.log("Se monta Consultar Tickets");
@@ -12,10 +15,22 @@ const ConsultarTickets = () => {
         }
     }, []);
     return (
-        <div>
-            <h2>Consultar Tickets</h2>
-            <p>Contenido</p>
-        </div>
+        <Routes>
+            <Route
+                path="/"
+                element={
+                    <ListadoTickets
+                        isUser={isUser}
+                        isAdmin={isAdmin}
+                        idUsuario={idUsuario}
+                    />
+                }
+            />
+            <Route path="actualizar/:idTicket" element={<ActualizarTicket />} />
+
+            <Route path="detalle/:idTicket" element={<DetalleTicket />} />
+            <Route path="*" element={<Navigate to="home/consultarTickets" />} />
+        </Routes>
     );
 };
 

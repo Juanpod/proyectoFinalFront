@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
 const AdminRoute = ({ element, isAdmin }) => {
     if (!isAdmin) {
+        console.log("El usuario no tiene acceso a esta ruta");
         return <Navigate to="/home/inicio" />;
     }
 
-    // Token es válido y no ha expirado
     return element;
 };
 

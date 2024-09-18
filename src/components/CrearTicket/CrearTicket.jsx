@@ -1,5 +1,3 @@
-import "./CrearTicket.css";
-
 const CrearTicket = () => {
     return (
         <div>
