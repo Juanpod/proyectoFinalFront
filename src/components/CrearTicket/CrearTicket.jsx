@@ -4,7 +4,6 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
     const navigate = useNavigate();
     const [asuntoTicket, setAsuntoTicket] = useState("");
     const [descripcionTicket, setDescripcionTicket] = useState("");
-    const [fechaCreacion, setFechaCreacion] = useState("");
     const [idEstadoTicket, setIdEstadoTicket] = useState("");
     const [idPrioridad, setIdPrioridad] = useState("");
     const [idCategoria, setIdCategoria] = useState("");
@@ -117,6 +116,23 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
         }
     };
 
+    const getIdEstadoTicket = (nombreABuscar) => {
+        const elemento = estadosTickets.find(
+            (elemento) =>
+                elemento.estadoTicket.toLowerCase() ===
+                nombreABuscar.toLowerCase()
+        );
+        return elemento ? elemento.idEstadoTicket : null;
+    };
+    const getIdPrioridad = (nombreABuscar) => {
+        const elemento = prioridades.find(
+            (elemento) =>
+                elemento.nombrePrioridad.toLowerCase() ===
+                nombreABuscar.toLowerCase()
+        );
+        return elemento ? elemento.idPrioridad : null;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -156,23 +172,6 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
         } catch (error) {
             setError(error.message);
         }
-    };
-
-    const getIdEstadoTicket = (nombreABuscar) => {
-        const elemento = estadosTickets.find(
-            (elemento) =>
-                elemento.estadoTicket.toLowerCase() ===
-                nombreABuscar.toLowerCase()
-        );
-        return elemento ? elemento.idEstadoTicket : null;
-    };
-    const getIdPrioridad = (nombreABuscar) => {
-        const elemento = prioridades.find(
-            (elemento) =>
-                elemento.nombrePrioridad.toLowerCase() ===
-                nombreABuscar.toLowerCase()
-        );
-        return elemento ? elemento.idPrioridad : null;
     };
 
     useEffect(() => {

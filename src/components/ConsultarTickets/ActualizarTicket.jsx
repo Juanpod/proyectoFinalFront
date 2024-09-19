@@ -326,7 +326,7 @@ const ActualizarTicket = () => {
                 <div>
                     <label>Usuario Resolutor:</label>
                     <select
-                        value={idUsuarioResolutor}
+                        value={idUsuarioResolutor || ""}
                         onChange={(e) => setIdUsuarioResolutor(e.target.value)}
                         disabled={"cerrado" == getNombreEstado(idEstadoTicket)}
                     >

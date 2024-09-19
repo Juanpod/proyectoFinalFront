@@ -8,7 +8,9 @@ const Perfil = ({ isAdmin, isUser }) => {
     const navigate = useNavigate();
     useEffect(() => {
         console.log("Se monta Perfil");
-        console.log("En perfil", isUser);
+        console.log("Es Admin?", isAdmin);
+        console.log("Es usuario?", isUser);
+        console.log("Es resolutor?", !isAdmin && !isUser);
         if (!verificarSesion(localStorage.getItem("token"))) {
             navigate("/login");
         }

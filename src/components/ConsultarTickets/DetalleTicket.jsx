@@ -37,7 +37,7 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los datos son del ticket:", data.data);
+            console.log("Datos del ticket:", data.data);
 
             setTicket(data.data);
             fetchEstadoTicket(data.data.idEstadoTicket);
@@ -72,7 +72,7 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos del Estado Ticket:", data.data);
             setEstadoTicket(data.data.estadoTicket);
         } catch (error) {
             setError(error.message);
@@ -96,7 +96,7 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos de la Prioridad del ticket:", data.data);
             setNombrePrioridad(data.data.nombrePrioridad);
         } catch (error) {
             setError(error.message);
@@ -120,7 +120,7 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos de la Categoria del ticket:", data.data);
             setNombreCategoria(data.data.nombreCategoria);
         } catch (error) {
             setError(error.message);
@@ -144,7 +144,7 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos del Usuario creador:", data.data);
 
             setUsuarioCreador(data.data);
         } catch (error) {
@@ -169,7 +169,7 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos del usuario Creador:", data.data);
 
             setUsuarioResolutor(data.data);
         } catch (error) {
@@ -191,12 +191,12 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los comentarios son:", data.data);
+            //console.log("Los comentarios son:", data.data);
             const comentariosFiltrados = data.data.filter(
                 (comentario) => comentario.idTicket == idTicket
             );
-            console.log("El ticket id:", idTicket);
-            console.log("Comentarios Filtrados", comentariosFiltrados);
+            //console.log("El ticket id:", idTicket);
+            console.log("Comentarios del Ticket", comentariosFiltrados);
             setComentarios(
                 data.data.filter(
                     (comentario) => comentario.idTicket == idTicket
@@ -221,12 +221,12 @@ const DetalleTicket = ({ isUser }) => {
             }
 
             const data = await response.json();
-            console.log("Los equipos son:", data.data);
+            //console.log("Los equipos son:", data.data);
             const equiposFiltrados = data.data.filter(
                 (equipo) => equipo.idUsuario == ticket.idUsuarioCreador
             );
-            console.log("Id usuario creador", ticket.idUsuarioCreador);
-            console.log("Equipos Filtrados", equiposFiltrados);
+            //console.log("Id usuario creador", ticket.idUsuarioCreador);
+            console.log("Equipos del Usuario", equiposFiltrados);
             setEquipos(
                 data.data.filter(
                     (equipo) => equipo.idUsuario === ticket.idUsuarioCreador
@@ -238,7 +238,6 @@ const DetalleTicket = ({ isUser }) => {
     };
     useEffect(() => {
         console.log("Se Monta Detalle Ticket");
-        console.log("En detalle ticket isUser", isUser);
         fetchTicket();
     }, []);
     return (

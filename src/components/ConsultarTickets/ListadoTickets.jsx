@@ -112,7 +112,7 @@ const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
         console.log("Se monta Listado de Tickets");
         fetchTickets();
         fetchEstados();
-    }, []);
+    }, [isAdmin, isUser, idUsuario]);
     return (
         <div>
             <h2>

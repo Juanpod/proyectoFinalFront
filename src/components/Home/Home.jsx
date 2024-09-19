@@ -10,7 +10,8 @@ import Gestionar from "../Gestionar/Gestionar";
 import { jwtDecode } from "jwt-decode";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import ListadoUsuarios from "../Gestionar/GestionarUsuarios/ListadoUsuarios";
-
+import { verificarSesion } from "../verificarSesion/verificarSesion";
+import NavBar from "./NavBar";
 const Home = () => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
@@ -23,110 +24,70 @@ const Home = () => {
     const Resolutor = 2;
     const Usuario = 3;
 
-    const handleLogout = () => {
-        if (window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
-            localStorage.removeItem("token");
-            navigate("/login");
-        }
-    };
-
     useEffect(() => {
         console.log("Se carga Home");
-        if (localStorage.getItem("token")) {
-            const token = localStorage.getItem("token");
-            if (isTokenExpired(token)) {
-                localStorage.removeItem("token");
-                console.log("Token expirado");
-                navigate("/login");
-            } else {
-                console.log("Token Valido");
-                const decodedToken = jwtDecode(token);
-                console.log(decodedToken);
-                setNombreUsuario(decodedToken.nombre);
-                setIdUsuario(decodedToken.idUsuario);
-                if (decodedToken.idRol === Administrador) {
-                    setIsAdmin(true);
-                    console.log("Es Admin", isAdmin);
-                }
-                if (decodedToken.idRol === Usuario) {
-                    setUser(true);
-                    console.log("Es Usuario", isUser);
-                }
-                if (decodedToken.idRol === Resolutor) {
-                    setResolutor(true);
-                    console.log("Es Resolutor", isResolutor);
-                }
-            }
-        } else {
-            console.log("No hay token");
+
+        const token = localStorage.getItem("token");
+        if (!verificarSesion(token)) {
             navigate("/login");
         }
-    }, [isAdmin, isResolutor, isUser]);
 
-    useEffect(() => {
-        console.log("Se carga Home");
-    }, [isAdmin, isResolutor, isUser]);
+        const decodedToken = jwtDecode(token);
+        console.log("Token Valido", decodedToken);
+
+        setNombreUsuario(decodedToken.nombre);
+        setIdUsuario(decodedToken.idUsuario);
+
+        switch (decodedToken.idRol) {
+            case Administrador:
+                setIsAdmin(true);
+                console.log("Es Admin");
+                break;
+            case Usuario:
+                setUser(true);
+                console.log("Es Usuario");
+                break;
+            case Resolutor:
+                setResolutor(true);
+                console.log("Es Resolutor");
+                break;
+            default:
+                console.log("Rol no reconocido");
+                break;
+        }
+    }, []);
 
     return (
         <div className="home-wrapper">
-            <nav className="navbar">
-                <ul>
-                    <li>
-                        <button onClick={() => navigate("/home/inicio")}>
-                            Inicio
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            onClick={() =>
-                                navigate(`/home/perfil/${idUsuario}`)
-                            }
-                        >
-                            {isAdmin
-                                ? "Administrador"
-                                : isResolutor
-                                ? "Resolutor"
-                                : "Usuario"}
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            onClick={() => navigate("/home/consultarTickets")}
-                        >
-                            Consultar Tickets
-                        </button>
-                    </li>
-                    {(isUser || isAdmin) && (
-                        <li>
-                            <button
-                                onClick={() => navigate("/home/crearTicket")}
-                            >
-                                Crear Ticket
-                            </button>
-                        </li>
-                    )}
-
-                    {isAdmin && (
-                        <li>
-                            <button onClick={() => navigate("/home/gestionar")}>
-                                Gestión
-                            </button>
-                        </li>
-                    )}
-
-                    <li>
-                        <button onClick={handleLogout}>Cerrar Sesión</button>
-                    </li>
-                </ul>
-            </nav>
-
+            <NavBar
+                isUser={isUser}
+                isAdmin={isAdmin}
+                isResolutor={isResolutor}
+                idUsuario={idUsuario}
+            />
             <div className="content">
                 <p>Bienvenido, {nombreUsuario}.</p>
                 <Routes>
-                    <Route path="inicio" element={<Inicio />} />
+                    <Route
+                        path="inicio"
+                        element={
+                            <Inicio
+                                isUser={isUser}
+                                isAdmin={isAdmin}
+                                idUsuario={idUsuario}
+                                isResolutor={isResolutor}
+                            />
+                        }
+                    />
                     <Route
                         path="perfil/*"
-                        element={<Perfil isUser={isUser} isAdmin={isAdmin} />}
+                        element={
+                            <Perfil
+                                isUser={isUser}
+                                isAdmin={isAdmin}
+                                isResolutor={isResolutor}
+                            />
+                        }
                     />
                     <Route
                         path="consultarTickets/*"

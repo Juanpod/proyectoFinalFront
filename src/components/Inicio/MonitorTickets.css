@@ -1,0 +1,39 @@
+.monitor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 20px;
+    flex: 1 1 25%;
+    min-width: 200px;
+    cursor: pointer
+    
+}
+
+.monitor-container:hover {
+    background-color: #c7c4c4; /* Cambia el color de fondo al pasar el mouse */
+}
+
+.monitor-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+}
+
+.monitor-label {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .monitor-container {
+        flex: 1 1 100%; 
+    }
+}

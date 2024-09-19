@@ -28,7 +28,7 @@ const DetalleUsuario = () => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos del usuario:", data.data);
             setUsuario(data.data);
 
             fetchSucursal(data.data.idSucursal);
@@ -57,7 +57,7 @@ const DetalleUsuario = () => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos de la Sucursal:", data.data);
             setNombreSucursal(data.data.nombreSucursal);
         } catch (error) {
             setError(error.message);
@@ -79,7 +79,7 @@ const DetalleUsuario = () => {
             }
 
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Datos del Rol:", data.data);
             setNombreRol(data.data.nombreRol);
         } catch (error) {
             setError(error.message);
