@@ -1,23 +1,32 @@
-import "./Perfil.css";
 import { useEffect } from "react";
 import { verificarSesion } from "../verificarSesion/verificarSesion";
-import { useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import DetalleUsuario from "../Gestionar/GestionarUsuarios/DetalleUsuario";
+import ActualizarUsuario from "../Gestionar/GestionarUsuarios/ActualizarUsuario";
 
-const Perfil = () => {
+const Perfil = ({ isAdmin, isUser }) => {
     const navigate = useNavigate();
     useEffect(() => {
         console.log("Se monta Perfil");
-
+        console.log("En perfil", isUser);
         if (!verificarSesion(localStorage.getItem("token"))) {
             navigate("/login");
         }
     }, []);
 
     return (
-        <div>
-            <h2>Perfil</h2>
-            <p>Contenido del perfil del usuario</p>
-        </div>
+        <Routes>
+            <Route
+                path="/:idUsuario"
+                element={<DetalleUsuario isUser={isUser} isAdmin={isAdmin} />}
+            />
+            <Route
+                path="actualizar/:idUsuario"
+                element={
+                    <ActualizarUsuario isUser={isUser} isAdmin={isAdmin} />
+                }
+            />
+        </Routes>
     );
 };
 

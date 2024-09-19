@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../Gestionar.css";
 
 const DetalleUsuario = () => {
+    const navigate = useNavigate();
     const { idUsuario } = useParams();
     const [usuario, setUsuario] = useState({});
 
@@ -85,6 +85,9 @@ const DetalleUsuario = () => {
             setError(error.message);
         }
     };
+    const handleActualizarClick = () => {
+        navigate(`/home/perfil/actualizar/${idUsuario}`);
+    };
 
     useEffect(() => {
         console.log("Se monta Detalle de Usuario");
@@ -135,6 +138,11 @@ const DetalleUsuario = () => {
                     </tr>
                 </tbody>
             </table>
+            {nombreRol.toLowerCase() === "usuario" && (
+                <button onClick={handleActualizarClick}>
+                    Actualizar Usuario
+                </button>
+            )}
         </div>
     );
 };

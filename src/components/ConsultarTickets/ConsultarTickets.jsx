@@ -1,4 +1,3 @@
-import "../Gestionar/Gestionar.css";
 import { useEffect, useState } from "react";
 import { verificarSesion } from "../verificarSesion/verificarSesion";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
@@ -28,7 +27,10 @@ const ConsultarTickets = ({ isAdmin, isUser, idUsuario }) => {
             />
             <Route path="actualizar/:idTicket" element={<ActualizarTicket />} />
 
-            <Route path="detalle/:idTicket" element={<DetalleTicket />} />
+            <Route
+                path="detalle/:idTicket"
+                element={<DetalleTicket isUser={isUser} />}
+            />
             <Route path="*" element={<Navigate to="home/consultarTickets" />} />
         </Routes>
     );

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../Gestionar.css";
 
 const ListadoUsuarios = () => {
     const navigate = useNavigate();
     const [usuarios, setUsuarios] = useState([]);
     const [error, setError] = useState(null);
+    const [roles, setRoles] = useState([]);
 
     const fetchUsuarios = async () => {
         try {
@@ -58,10 +58,37 @@ const ListadoUsuarios = () => {
             }
         }
     };
+    const fetchRoles = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/rol", {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener los datos");
+            }
+            const data = await response.json();
+            console.log("Los datos son:", data.data);
+            setRoles(data.data);
+        } catch (err) {
+            console.log(err);
+            setError(err.message);
+        }
+    };
+
+    const getNombreRol = (idRolABuscar) => {
+        const rol = roles.find((rol) => rol.idRol === idRolABuscar);
+        return rol ? rol.nombreRol : "Desconocido";
+    };
 
     useEffect(() => {
         console.log("Se monta Listado de Usuarios");
         fetchUsuarios();
+        fetchRoles();
     }, []);
 
     return (
@@ -79,6 +106,7 @@ const ListadoUsuarios = () => {
                         <th>ID</th>
                         <th>Nombre del Usuario</th>
                         <th>Email de Usuario</th>
+                        <th>Rol de Usuario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -88,6 +116,7 @@ const ListadoUsuarios = () => {
                             <td>{usuario.idUsuario}</td>
                             <td>{usuario.nombre}</td>
                             <td>{usuario.email}</td>
+                            <td>{getNombreRol(usuario.idRol)}</td>
                             <td>
                                 <div className="button-container">
                                     {/* Botón para ver detalles */}

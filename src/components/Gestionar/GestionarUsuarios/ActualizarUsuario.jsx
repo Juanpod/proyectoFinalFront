@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../Gestionar.css";
 
-const ActualizarUsuario = () => {
+const ActualizarUsuario = ({ isAdmin, isUser }) => {
     const { idUsuario } = useParams();
     const navigate = useNavigate();
     const [nombre, setNombre] = useState("");
@@ -131,8 +130,11 @@ const ActualizarUsuario = () => {
             }
 
             window.alert("Usuario actualizado correctamente");
-
-            navigate("/home/gestionar/usuarios");
+            if (isAdmin) {
+                navigate("/home/gestionar/usuarios");
+            } else {
+                navigate(`/home/perfil/${idUsuario}`);
+            }
         } catch (error) {
             setError(error.message);
         }
@@ -168,12 +170,13 @@ const ActualizarUsuario = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        disabled={isUser}
                     />
                 </div>
                 <div>
                     <label>Nueva Contraseña:</label>
                     <input
-                        type="text"
+                        type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -186,6 +189,7 @@ const ActualizarUsuario = () => {
                         value={rut}
                         onChange={(e) => setRut(e.target.value)}
                         required
+                        disabled={isUser}
                     />
                 </div>
                 <div>
@@ -193,6 +197,7 @@ const ActualizarUsuario = () => {
                     <select
                         value={idRol}
                         onChange={(e) => setIdRol(e.target.value)}
+                        disabled={isUser}
                     >
                         <option value="">Seleccione un Rol</option>
                         {roles.map((rol) => (

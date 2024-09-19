@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Gestionar.css";
 
 const ListadoTipoEquipos = () => {
     const navigate = useNavigate();

@@ -26,26 +26,196 @@
 
 .navbar ul li {
     padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    
 }
 
-.navbar ul li:hover {
+
+.content {
+    padding: 20px;
+}
+
+
+.gestionar-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.gestionar-buttons button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    width: 200px; /* Ajusta el ancho según sea necesario */
+}
+
+
+.gestionar-buttons button:hover {
     background-color: #555;
 }
 
-.navbar ul li a {
-    color: white;
-    text-decoration: none;
+
+
+
+/* Asegura que la tabla tenga el 100% del ancho de la pantalla */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Hace que las líneas de las celdas se unan */
+    margin-top: 20px;
 }
 
-.content {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
+/* Define las líneas de la tabla */
+table, th, td {
+    border: 1px solid black;
+    
 }
+
+/* Centra el texto y agrega algo de padding a las celdas */
+th, td {
+    text-align: left;
+    padding: 8px;
+    
+}
+
+
+/* Estilo para los botones dentro de la tabla */
+
+
+/* Cambia el color del botón al pasar el cursor */
+td button:hover {
+    background-color: #45a049;
+}
+
+
+
+
+td .button-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+/* Estilo para los botones dentro de la tabla */
+td button {
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px; /* Ajusta el tamaño del texto según sea necesario */
+}
+
+form {
+    background-color: #3f3e3e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
 
 h2 {
-    margin: 0 0 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
 }
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+option {
+    padding: 10px; 
+    background-color: #fff;
+    color: #333; 
+}
+
+select {
+    width: 100%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border-radius: 5px;
+    border: 1px solid #ccc; 
+    background-color: #f9f9f9;
+    color: #333; 
+    
+    
+    
+}
+
+/* Contenedor principal de los detalles */
+.elemento-detalles {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Título principal */
+.elemento-detalles h2 {
+    
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Estilo para las etiquetas fuertes */
+.elemento-detalles p strong {
+    
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Estilo para los párrafos que contienen la información */
+.elemento-detalles p {
+    margin: 10px 0;
+    font-size: 18px;
+    
+}
+
+/* Añadir un estilo de error si existe un error */
+
+
+/* Personalización del contenedor */
+.elemento-detalles div {
+    padding: 10px 0;
+    
+}
+
+/* Mejorar el aspecto del último elemento (sin borde inferior) */
+.elemento-detalles div:last-child {
+    border-bottom: none;
+}
+
+textarea {
+    width: 95%;
+    min-height: 50px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    resize: vertical; 
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }

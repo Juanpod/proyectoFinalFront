@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { isTokenExpired } from "../isTokenExpired/isTokenExpired";
+import { verificarSesion } from "../verificarSesion/verificarSesion";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(email);
-        console.log(password);
+
         if (!email || !password) {
             setError("Por favor, ingresa tu correo electrónico y contraseña.");
             return;
@@ -30,7 +30,7 @@ const Login = () => {
             const data = await response.json();
 
             if (data.success) {
-                // Redirigir o realizar acción tras inicio de sesión exitoso
+                //Inicio de sesion exitoso
                 localStorage.setItem("token", data.data.token);
 
                 console.log("Inicio de sesión exitoso", data);
@@ -38,7 +38,6 @@ const Login = () => {
                 setError("");
                 navigate("/home");
             } else {
-                // Mostrar error en caso de fallo en el inicio de sesión
                 setError(data.message || "Error en el inicio de sesión.");
             }
         } catch (err) {
@@ -48,13 +47,8 @@ const Login = () => {
 
     useEffect(() => {
         console.log("Se carga Login");
-        if (localStorage.getItem("token")) {
-            const token = localStorage.getItem("token");
-            if (isTokenExpired(token)) {
-                localStorage.removeItem("token");
-            } else {
-                navigate("/home");
-            }
+        if (verificarSesion(localStorage.getItem("token"))) {
+            navigate("/home");
         }
     }, []);
 

@@ -1,4 +1,3 @@
-import "./Gestionar.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import GestionarEquipos from "../Gestionar/GestionarEquipos/GestionarEquipos";
 import GestionarTiposEquipos from "../Gestionar/GestionarTiposEquipos/GestionarTiposEquipos";

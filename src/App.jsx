@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Home from "./components/Home/Home";

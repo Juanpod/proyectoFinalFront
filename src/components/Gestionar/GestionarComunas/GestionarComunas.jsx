@@ -1,4 +1,3 @@
-import "../Gestionar.css";
 import { useEffect, useState } from "react";
 import { verificarSesion } from "../../verificarSesion/verificarSesion";
 import { Routes, Route, useNavigate } from "react-router-dom";

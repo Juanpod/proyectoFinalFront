@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../Gestionar.css";
+
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { verificarSesion } from "../../verificarSesion/verificarSesion";
 import ActualizarTipoEquipo from "./ActualizarTipoEquipo";

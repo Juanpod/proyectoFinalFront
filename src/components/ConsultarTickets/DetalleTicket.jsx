@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import DetalleComentario from "../Comentarios/DetalleComentario";
+import CrearComentario from "../Comentarios/CrearComentario";
 
-const DetalleTicket = () => {
+const DetalleTicket = ({ isUser }) => {
     const { idTicket } = useParams();
     const [ticket, setTicket] = useState("");
 
@@ -10,6 +12,10 @@ const DetalleTicket = () => {
     const [nombreCategoria, setNombreCategoria] = useState("");
     const [usuarioCreador, setUsuarioCreador] = useState({});
     const [usuarioResolutor, setUsuarioResolutor] = useState({});
+
+    const [comentarios, setComentarios] = useState([]);
+    const [equipos, setEquipos] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     const [error, setError] = useState(null);
 
@@ -41,6 +47,8 @@ const DetalleTicket = () => {
             if (data.data.idUsuarioResolutor) {
                 fetchUsuarioResolutor(data.data.idUsuarioResolutor);
             }
+            fetchComentarios();
+            fetchEquipos(data.data);
         } catch (error) {
             setError(error.message);
         }
@@ -168,8 +176,69 @@ const DetalleTicket = () => {
             setError(error.message);
         }
     };
+    const fetchComentarios = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/comentario/`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener los comentarios");
+            }
+
+            const data = await response.json();
+            console.log("Los comentarios son:", data.data);
+            const comentariosFiltrados = data.data.filter(
+                (comentario) => comentario.idTicket == idTicket
+            );
+            console.log("El ticket id:", idTicket);
+            console.log("Comentarios Filtrados", comentariosFiltrados);
+            setComentarios(
+                data.data.filter(
+                    (comentario) => comentario.idTicket == idTicket
+                )
+            );
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+    const fetchEquipos = async (ticket) => {
+        try {
+            const response = await fetch(`http://localhost:3000/equipo/`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener los comentarios");
+            }
+
+            const data = await response.json();
+            console.log("Los equipos son:", data.data);
+            const equiposFiltrados = data.data.filter(
+                (equipo) => equipo.idUsuario == ticket.idUsuarioCreador
+            );
+            console.log("Id usuario creador", ticket.idUsuarioCreador);
+            console.log("Equipos Filtrados", equiposFiltrados);
+            setEquipos(
+                data.data.filter(
+                    (equipo) => equipo.idUsuario === ticket.idUsuarioCreador
+                )
+            );
+        } catch (error) {
+            setError(error.message);
+        }
+    };
     useEffect(() => {
         console.log("Se Monta Detalle Ticket");
+        console.log("En detalle ticket isUser", isUser);
         fetchTicket();
     }, []);
     return (
@@ -235,6 +304,69 @@ const DetalleTicket = () => {
                     </tr>
                 </tbody>
             </table>
+
+            <h3>Equipos:</h3>
+            {equipos.length > 0 ? (
+                <table>
+                    <tbody>
+                        {equipos.map((equipo) => (
+                            <tr key={equipo.idEquipo}>
+                                <td>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>IP Equipo:</strong>{" "}
+                                                    {equipo.ipEquipo}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Modelo:</strong>
+                                                    {equipo.modeloEquipo}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>{equipo.nombreEquipo}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No hay equipos asignados para el usuario.</p>
+            )}
+            {!showModal && (
+                <button onClick={() => setShowModal(true)}>Comentar</button>
+            )}
+
+            {showModal && (
+                <CrearComentario
+                    idTicket={idTicket}
+                    onClose={() => setShowModal(false)}
+                    onComentarioAdded={() => fetchComentarios(idTicket)}
+                    isUser={isUser}
+                />
+            )}
+            <h3>Comentarios:</h3>
+            {comentarios.length > 0 ? (
+                <table>
+                    <tbody>
+                        {comentarios.map((comentario) => (
+                            <DetalleComentario
+                                key={comentario.idComentario}
+                                comentario={comentario}
+                            />
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No hay comentarios para este ticket.</p>
+            )}
         </div>
     );
 };

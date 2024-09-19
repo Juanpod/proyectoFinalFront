@@ -1,7 +1,7 @@
 import { Link, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Home.css";
-import { isTokenExpired } from "../isTokenExpired/isTokenExpired";
+import { isTokenExpired } from "../verificarSesion/isTokenExpired";
 import Inicio from "../Inicio/Inicio";
 import Perfil from "../Perfil/Perfil";
 import ConsultarTickets from "../ConsultarTickets/ConsultarTickets";
@@ -63,6 +63,10 @@ const Home = () => {
         }
     }, [isAdmin, isResolutor, isUser]);
 
+    useEffect(() => {
+        console.log("Se carga Home");
+    }, [isAdmin, isResolutor, isUser]);
+
     return (
         <div className="home-wrapper">
             <nav className="navbar">
@@ -73,7 +77,11 @@ const Home = () => {
                         </button>
                     </li>
                     <li>
-                        <button onClick={() => navigate("/home/perfil")}>
+                        <button
+                            onClick={() =>
+                                navigate(`/home/perfil/${idUsuario}`)
+                            }
+                        >
                             {isAdmin
                                 ? "Administrador"
                                 : isResolutor
@@ -111,11 +119,15 @@ const Home = () => {
                     </li>
                 </ul>
             </nav>
-            <p>Bienvenido, {nombreUsuario}.</p>
+
             <div className="content">
+                <p>Bienvenido, {nombreUsuario}.</p>
                 <Routes>
                     <Route path="inicio" element={<Inicio />} />
-                    <Route path="perfil" element={<Perfil />} />
+                    <Route
+                        path="perfil/*"
+                        element={<Perfil isUser={isUser} isAdmin={isAdmin} />}
+                    />
                     <Route
                         path="consultarTickets/*"
                         element={
@@ -126,7 +138,16 @@ const Home = () => {
                             />
                         }
                     />
-                    <Route path="crearTicket" element={<CrearTicket />} />
+                    <Route
+                        path="crearTicket"
+                        element={
+                            <CrearTicket
+                                isUser={isUser}
+                                isAdmin={isAdmin}
+                                idUsuario={idUsuario}
+                            />
+                        }
+                    />
                     <Route
                         path="gestionar/*"
                         element={

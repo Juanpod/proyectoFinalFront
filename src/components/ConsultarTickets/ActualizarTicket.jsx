@@ -130,7 +130,7 @@ const ActualizarTicket = () => {
                 throw new Error("Error al obtener los datos");
             }
             const data = await response.json();
-            console.log("Los datos son:", data.data);
+            console.log("Los datos usuarios son:", data.data);
             console.log(
                 "Los usuarios normales son",
                 data.data.filter((usuario) => usuario.idRol === 3)
@@ -158,7 +158,6 @@ const ActualizarTicket = () => {
             const ticketData = {
                 asuntoTicket: asuntoTicket,
                 descripcionTicket: descripcionTicket,
-                fechaCreacion: fechaCreacion,
                 idEstadoTicket: idEstadoTicket,
                 idPrioridad: idPrioridad,
                 idCategoria: idCategoria,
@@ -329,7 +328,6 @@ const ActualizarTicket = () => {
                     <select
                         value={idUsuarioResolutor}
                         onChange={(e) => setIdUsuarioResolutor(e.target.value)}
-                        required
                         disabled={"cerrado" == getNombreEstado(idEstadoTicket)}
                     >
                         <option value="">Seleccione un usuario</option>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../Gestionar/Gestionar.css";
 
 const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
     const navigate = useNavigate();
