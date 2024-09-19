@@ -75,7 +75,7 @@ const CrearUsuario = () => {
             };
 
             console.log(usuarioData);
-            const response = await fetch(`http://localhost:3000/usuario/`, {
+            const response = await fetch(`${URL}/usuario/`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),
