@@ -35,9 +35,12 @@ const CrearCategoria = () => {
             setError(error.message);
         }
     };
-
+    const handleRegresar = () => {
+        navigate(-1); // Regresa a la página anterior
+    };
     return (
         <div>
+            <button onClick={handleRegresar}>Regresar</button>
             <h2>Crear Nueva Categoria</h2>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit}>

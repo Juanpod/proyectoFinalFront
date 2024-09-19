@@ -9,6 +9,7 @@
 
 .content {
     padding: 20px;
+    overflow-x: auto;
 }
 
 
@@ -40,20 +41,19 @@
 
 
 
-/* Asegura que la tabla tenga el 100% del ancho de la pantalla */
+
 table {
     width: 100%;
-    border-collapse: collapse; /* Hace que las líneas de las celdas se unan */
+    border-collapse: collapse; 
     margin-top: 20px;
+    
 }
 
-/* Define las líneas de la tabla */
 table, th, td {
     border: 1px solid black;
     
 }
 
-/* Centra el texto y agrega algo de padding a las celdas */
 th, td {
     text-align: left;
     padding: 8px;
@@ -61,30 +61,40 @@ th, td {
 }
 
 
-/* Estilo para los botones dentro de la tabla */
 
-
-/* Cambia el color del botón al pasar el cursor */
 td button:hover {
     background-color: #45a049;
 }
 
 
-
-
 td .button-container {
     display: flex;
-    gap: 10px; /* Espacio entre los botones */
+    gap: 10px; 
 }
 
-/* Estilo para los botones dentro de la tabla */
 td button {
     padding: 5px 10px;
     border: none;
-    color: white;
+    color: #ccc;
     cursor: pointer;
-    font-size: 14px; /* Ajusta el tamaño del texto según sea necesario */
+    font-size: 14px; 
 }
+
+@media (max-width: 600px) {
+    .table th, .table td {
+        display: block; /* Hace que las celdas se comporten como bloques */
+        width: 100%; /* Asegura que ocupen el ancho completo */
+    }
+
+    .table tr {
+        margin-bottom: 15px; /* Espacio entre filas */
+        display: block; /* Hace que las filas se comporten como bloques */
+    }
+}
+
+
+
+
 
 form {
     background-color: #3f3e3e;

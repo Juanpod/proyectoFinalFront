@@ -67,6 +67,7 @@ const Home = () => {
             />
             <div className="content">
                 <p>Bienvenido, {nombreUsuario}.</p>
+
                 <Routes>
                     <Route
                         path="inicio"

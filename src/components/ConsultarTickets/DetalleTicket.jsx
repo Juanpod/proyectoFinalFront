@@ -7,7 +7,7 @@ import { URL } from "../../config";
 const DetalleTicket = ({ isUser }) => {
     const { idTicket } = useParams();
     const [ticket, setTicket] = useState("");
-
+    const navigate = useNavigate();
     const [estadoTicket, setEstadoTicket] = useState("");
     const [nombrePrioridad, setNombrePrioridad] = useState("");
     const [nombreCategoria, setNombreCategoria] = useState("");
@@ -222,12 +222,17 @@ const DetalleTicket = ({ isUser }) => {
             setError(error.message);
         }
     };
+    const handleRegresar = () => {
+        navigate(-1); // Regresa a la página anterior
+    };
+
     useEffect(() => {
         console.log("Se Monta Detalle Ticket");
         fetchTicket();
     }, []);
     return (
         <div className="elemento-detalles">
+            <button onClick={handleRegresar}>Regresar</button>
             <h2>Detalles del Ticket N°: {idTicket}</h2>
             {error && <p className="error">{error}</p>}
 

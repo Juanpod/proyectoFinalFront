@@ -62,13 +62,16 @@ const ActualizarCategoria = () => {
             setError(error.message);
         }
     };
-
+    const handleRegresar = () => {
+        navigate(-1); // Regresa a la página anterior
+    };
     useEffect(() => {
         console.log("Se monta Actualizar Categoria");
         fetchCategoria();
     }, [idCategoria]);
     return (
         <div>
+            <button onClick={handleRegresar}>Regresar</button>
             <h2>
                 Actualizar la categoria {oldCategoria} con ID: {idCategoria}
             </h2>

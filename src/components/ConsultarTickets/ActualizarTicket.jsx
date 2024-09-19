@@ -51,6 +51,9 @@ const ActualizarTicket = ({ isAdmin }) => {
             setError(error.message);
         }
     };
+    const handleRegresar = () => {
+        navigate(-1); // Regresa a la página anterior
+    };
     const fetchEstadosTickets = async () => {
         try {
             const response = await fetch(`${URL}/estadoTicket`, {
@@ -218,6 +221,7 @@ const ActualizarTicket = ({ isAdmin }) => {
 
     return (
         <div>
+            <button onClick={handleRegresar}>Regresar</button>
             <h2>Actualizar el ticket con ID: {idTicket}</h2>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit}>
