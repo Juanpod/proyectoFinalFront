@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoTiposComentarios = () => {
     const navigate = useNavigate();
     const [tiposComentarios, setTiposComentarios] = useState([]);
@@ -8,16 +8,13 @@ const ListadoTiposComentarios = () => {
 
     const fetchTiposComentarios = async () => {
         try {
-            const response = await fetch(
-                "http://localhost:3000/tipoComentario",
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/tipoComentario`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -35,7 +32,7 @@ const ListadoTiposComentarios = () => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/tipoComentario/${idTipoComentario}`,
+                    `${URL}/tipoComentario/${idTipoComentario}`,
                     {
                         method: "DELETE",
                         headers: {

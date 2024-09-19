@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const ListadoComunas = () => {
     const navigate = useNavigate();
@@ -8,7 +9,7 @@ const ListadoComunas = () => {
 
     const fetchComunas = async () => {
         try {
-            const response = await fetch("http://localhost:3000/comuna", {
+            const response = await fetch(`${URL}/comuna`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -31,16 +32,13 @@ const ListadoComunas = () => {
     const handleDelete = async (idComuna) => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/comuna/${idComuna}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await fetch(`${URL}/comuna/${idComuna}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (response.ok) {
                     setComunas(
                         comunas.filter((comuna) => comuna.idComuna !== idComuna)

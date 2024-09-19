@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { URL } from "../../config";
 
 const CrearComentario = ({ idTicket, onClose, onComentarioAdded, isUser }) => {
     const [comentario, setComentario] = useState("");
@@ -8,16 +9,13 @@ const CrearComentario = ({ idTicket, onClose, onComentarioAdded, isUser }) => {
 
     const fetchTiposComentarios = async () => {
         try {
-            const response = await fetch(
-                "http://localhost:3000/tipoComentario",
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/tipoComentario`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -57,7 +55,7 @@ const CrearComentario = ({ idTicket, onClose, onComentarioAdded, isUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3000/comentario`, {
+            const response = await fetch(`${URL}/comentario`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

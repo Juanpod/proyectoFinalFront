@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const ListadoCategorias = () => {
     const navigate = useNavigate();
@@ -8,7 +9,7 @@ const ListadoCategorias = () => {
 
     const fetchCategorias = async () => {
         try {
-            const response = await fetch("http://localhost:3000/categoria", {
+            const response = await fetch(`${URL}/categoria`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -32,7 +33,7 @@ const ListadoCategorias = () => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/categoria/${idCategoria}`,
+                    `${URL}/categoria/${idCategoria}`,
                     {
                         method: "DELETE",
                         headers: {

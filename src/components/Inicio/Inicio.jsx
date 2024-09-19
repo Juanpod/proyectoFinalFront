@@ -3,6 +3,7 @@ import { verificarSesion } from "../verificarSesion/verificarSesion";
 import { useNavigate } from "react-router-dom";
 import MonitorTickets from "./MonitorTickets";
 import "./Inicio.css";
+import { URL } from "../../config";
 
 const Inicio = ({ isUser, isAdmin, idUsuario, isResolutor }) => {
     const navigate = useNavigate();
@@ -15,9 +16,11 @@ const Inicio = ({ isUser, isAdmin, idUsuario, isResolutor }) => {
     const [ticketsAsignados, seticketsAsignados] = useState([]);
     const [ticketsCerrados, seticketsCerrados] = useState([]);
 
+    const estadoCerrado = 4;
+
     const fetchEstadosTickets = async () => {
         try {
-            const response = await fetch("http://localhost:3000/estadoTicket", {
+            const response = await fetch(`${URL}/estadoTicket`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -38,7 +41,7 @@ const Inicio = ({ isUser, isAdmin, idUsuario, isResolutor }) => {
     };
     const fetchTickets = async () => {
         try {
-            const response = await fetch("http://localhost:3000/ticket", {
+            const response = await fetch(`${URL}/ticket`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -88,16 +91,18 @@ const Inicio = ({ isUser, isAdmin, idUsuario, isResolutor }) => {
     };
     const filtrarTicketsPorEstado = (tickets) => {
         const ticketsAbiertos = tickets.filter(
-            (ticket) => getNombreEstado(ticket.idEstadoTicket) !== "cerrado"
+            (ticket) => ticket.idEstadoTicket !== estadoCerrado
         );
         const ticketsCerrados = tickets.filter(
-            (ticket) => getNombreEstado(ticket.idEstadoTicket) === "cerrado"
+            (ticket) => ticket.idEstadoTicket === estadoCerrado
         );
         const ticketsSinAsignar = tickets.filter(
             (ticket) => !ticket.idUsuarioResolutor
         );
         const ticketsAsignados = tickets.filter(
-            (ticket) => ticket.idUsuarioResolutor
+            (ticket) =>
+                ticket.idUsuarioResolutor &&
+                ticket.idEstadoTicket !== estadoCerrado
         );
         console.log("Tickets Abiertos", ticketsAbiertos);
         setTicketsAbiertos(ticketsAbiertos);
@@ -109,12 +114,6 @@ const Inicio = ({ isUser, isAdmin, idUsuario, isResolutor }) => {
         seticketsAsignados(ticketsAsignados);
     };
 
-    const getNombreEstado = (idEstadoABuscar) => {
-        const estado = estadosTickets.find(
-            (estado) => estado.idEstadoTicket === idEstadoABuscar
-        );
-        return estado ? estado.estadoTicket.toLowerCase() : "Desconocido";
-    };
     useEffect(() => {
         console.log("Se monta Inicio");
         console.log(isAdmin);
@@ -132,36 +131,34 @@ const Inicio = ({ isUser, isAdmin, idUsuario, isResolutor }) => {
             <h2>Inicio</h2>
             {error && <p className="error">{error}</p>}
             <div className="container-monitores">
-                {isUser ||
-                    (isAdmin && (
+                {isUser && (
+                    <MonitorTickets
+                        tickets={ticketsAbiertos}
+                        idUsuario={idUsuario}
+                        isAdmin={isAdmin}
+                        isResolutor={isResolutor}
+                        etiqueta={"Tickets Abiertos"}
+                    />
+                )}
+
+                {!isUser && (
+                    <>
                         <MonitorTickets
-                            tickets={ticketsAbiertos}
+                            tickets={ticketsSinAsignar}
                             idUsuario={idUsuario}
                             isAdmin={isAdmin}
                             isResolutor={isResolutor}
-                            etiqueta={"Tickets Abiertos"}
+                            etiqueta={"Tickets Sin Asignar"}
                         />
-                    ))}
-
-                {isAdmin ||
-                    (isResolutor && (
-                        <>
-                            <MonitorTickets
-                                tickets={ticketsSinAsignar}
-                                idUsuario={idUsuario}
-                                isAdmin={isAdmin}
-                                isResolutor={isResolutor}
-                                etiqueta={"Tickets Sin Asignar"}
-                            />
-                            <MonitorTickets
-                                tickets={ticketsAsignados}
-                                idUsuario={idUsuario}
-                                isAdmin={isAdmin}
-                                isResolutor={isResolutor}
-                                etiqueta={"Tickets Asignados"}
-                            />
-                        </>
-                    ))}
+                        <MonitorTickets
+                            tickets={ticketsAsignados}
+                            idUsuario={idUsuario}
+                            isAdmin={isAdmin}
+                            isResolutor={isResolutor}
+                            etiqueta={"Tickets Asignados"}
+                        />
+                    </>
+                )}
 
                 <MonitorTickets
                     tickets={ticketsCerrados}

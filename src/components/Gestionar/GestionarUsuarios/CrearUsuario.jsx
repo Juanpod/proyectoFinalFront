@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearUsuario = () => {
     const navigate = useNavigate();
     const [nombre, setNombre] = useState("");
@@ -18,7 +18,7 @@ const CrearUsuario = () => {
 
     const fetchSucursales = async () => {
         try {
-            const response = await fetch("http://localhost:3000/sucursal", {
+            const response = await fetch(`${URL}/sucursal`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -40,7 +40,7 @@ const CrearUsuario = () => {
 
     const fetchRoles = async () => {
         try {
-            const response = await fetch("http://localhost:3000/rol", {
+            const response = await fetch(`${URL}/rol`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),

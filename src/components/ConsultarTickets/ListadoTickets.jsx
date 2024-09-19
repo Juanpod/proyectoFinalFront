@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../config";
 
 const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
     const navigate = useNavigate();
@@ -7,9 +8,11 @@ const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
     const [estados, setEstados] = useState([]);
     const [error, setError] = useState(null);
 
+    const estadoCerrado = 4;
+
     const fetchTickets = async () => {
         try {
-            const response = await fetch("http://localhost:3000/ticket", {
+            const response = await fetch(`${URL}/ticket`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -55,7 +58,7 @@ const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
     };
     const fetchEstados = async () => {
         try {
-            const response = await fetch("http://localhost:3000/estadoTicket", {
+            const response = await fetch(`${URL}/estadoTicket`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -76,16 +79,13 @@ const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
     const handleDelete = async (idTicket) => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/ticket/${idTicket}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await fetch(`${URL}/ticket/${idTicket}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (response.ok) {
                     setTickets(
                         tickets.filter((ticket) => ticket.idTicket !== idTicket)
@@ -165,18 +165,20 @@ const ListadoTickets = ({ isAdmin, isUser, idUsuario }) => {
                                         Ver detalle
                                     </button>
                                     {/* Botón para actualizar*/}
-                                    {!isUser && (
-                                        <button
-                                            className="update-button"
-                                            onClick={() =>
-                                                navigate(
-                                                    `actualizar/${ticket.idTicket}`
-                                                )
-                                            }
-                                        >
-                                            Actualizar
-                                        </button>
-                                    )}
+                                    {!isUser &&
+                                        ticket.idEstadoTicket !==
+                                            estadoCerrado && (
+                                            <button
+                                                className="update-button"
+                                                onClick={() =>
+                                                    navigate(
+                                                        `actualizar/${ticket.idTicket}`
+                                                    )
+                                                }
+                                            >
+                                                Actualizar
+                                            </button>
+                                        )}
                                     {/* Botón para eliminar*/}
                                     {isAdmin && (
                                         <button

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoSucursales = () => {
     const navigate = useNavigate();
     const [sucursales, setSucursales] = useState([]);
@@ -8,7 +8,7 @@ const ListadoSucursales = () => {
 
     const fetchSucursales = async () => {
         try {
-            const response = await fetch("http://localhost:3000/sucursal", {
+            const response = await fetch(`${URL}/sucursal`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -31,16 +31,13 @@ const ListadoSucursales = () => {
     const handleDelete = async (idSucursal) => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/sucursal/${idSucursal}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await fetch(`${URL}/sucursal/${idSucursal}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (response.ok) {
                     setSucursales(
                         sucursales.filter(

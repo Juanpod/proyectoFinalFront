@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const DetalleEquipo = () => {
     const { idEquipo } = useParams();
@@ -11,16 +12,13 @@ const DetalleEquipo = () => {
 
     const fetchEquipo = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/equipo/${idEquipo}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/equipo/${idEquipo}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -43,7 +41,7 @@ const DetalleEquipo = () => {
     const fetchTipoEquipo = async (idTipoEquipo) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/tiposEquipos/${idTipoEquipo}`,
+                `${URL}/tiposEquipos/${idTipoEquipo}`,
                 {
                     method: "GET",
                     headers: {
@@ -67,16 +65,13 @@ const DetalleEquipo = () => {
 
     const fetchUsuario = async (idUsuario) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/usuario/${idUsuario}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");

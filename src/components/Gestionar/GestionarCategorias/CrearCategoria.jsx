@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const CrearCategoria = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const CrearCategoria = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/categoria", {
+            const response = await fetch(`${URL}/categoria`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

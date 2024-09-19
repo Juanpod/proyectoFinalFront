@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ActualizarPrioridad = () => {
     const { idPrioridad } = useParams();
     const navigate = useNavigate();
@@ -10,16 +10,13 @@ const ActualizarPrioridad = () => {
 
     const fetchPrioridad = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/prioridad/${idPrioridad}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/prioridad/${idPrioridad}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");

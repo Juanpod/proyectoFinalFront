@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ActualizarRol = () => {
     const { idRol } = useParams();
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ const ActualizarRol = () => {
 
     const fetchRol = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/rol/${idRol}`, {
+            const response = await fetch(`${URL}/rol/${idRol}`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -35,7 +35,7 @@ const ActualizarRol = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/rol/${idRol}`, {
+            const response = await fetch(`${URL}/rol/${idRol}`, {
                 method: "PUT",
                 headers: {
                     Authorization: localStorage.getItem("token"),

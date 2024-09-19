@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const DetalleSucursal = () => {
     const { idSucursal } = useParams();
     const [nombreSucursal, setNombreSucursal] = useState("");
@@ -11,16 +11,13 @@ const DetalleSucursal = () => {
 
     const fetchSucursal = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/sucursal/${idSucursal}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/sucursal/${idSucursal}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -38,16 +35,13 @@ const DetalleSucursal = () => {
 
     const fetchComuna = async (idComuna) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/comuna/${idComuna}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/comuna/${idComuna}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");

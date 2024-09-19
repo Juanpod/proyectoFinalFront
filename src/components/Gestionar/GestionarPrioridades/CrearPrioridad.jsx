@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearPrioridad = () => {
     const navigate = useNavigate();
     const [prioridad, setPrioridad] = useState("");
@@ -10,7 +10,7 @@ const CrearPrioridad = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/prioridad", {
+            const response = await fetch(`${URL}/prioridad`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

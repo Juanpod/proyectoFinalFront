@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoEquipos = () => {
     const navigate = useNavigate();
     const [equipos, setEquipos] = useState([]);
@@ -8,7 +8,7 @@ const ListadoEquipos = () => {
 
     const fetchEquipos = async () => {
         try {
-            const response = await fetch("http://localhost:3000/equipo", {
+            const response = await fetch(`${URL}/equipo`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -31,16 +31,13 @@ const ListadoEquipos = () => {
     const handleDelete = async (idEquipo) => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/equipo/${idEquipo}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await fetch(`${URL}/equipo/${idEquipo}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (response.ok) {
                     setEquipos(
                         equipos.filter((equipo) => equipo.idEquipo !== idEquipo)

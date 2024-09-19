@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ActualizarEstadoTicket = () => {
     const { idEstadoTicket } = useParams();
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ActualizarEstadoTicket = () => {
     const fetchEstadoTicket = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/estadoTicket/${idEstadoTicket}`,
+                `${URL}/estadoTicket/${idEstadoTicket}`,
                 {
                     method: "GET",
                     headers: {
@@ -39,7 +39,7 @@ const ActualizarEstadoTicket = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/estadoTicket/${idEstadoTicket}`,
+                `${URL}/estadoTicket/${idEstadoTicket}`,
                 {
                     method: "PUT",
                     headers: {

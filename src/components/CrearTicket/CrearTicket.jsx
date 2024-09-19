@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../config";
 const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
     const navigate = useNavigate();
     const [asuntoTicket, setAsuntoTicket] = useState("");
@@ -20,7 +21,7 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
 
     const fetchEstadosTickets = async () => {
         try {
-            const response = await fetch("http://localhost:3000/estadoTicket", {
+            const response = await fetch(`${URL}/estadoTicket`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -41,7 +42,7 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
     };
     const fetchPrioridades = async () => {
         try {
-            const response = await fetch("http://localhost:3000/prioridad", {
+            const response = await fetch(`${URL}/prioridad`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -62,7 +63,7 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
     };
     const fetchCategorias = async () => {
         try {
-            const response = await fetch("http://localhost:3000/categoria", {
+            const response = await fetch(`${URL}/categoria`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -83,7 +84,7 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
     };
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch("http://localhost:3000/usuario", {
+            const response = await fetch(`${URL}/usuario`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -151,7 +152,7 @@ const CrearTicket = ({ isAdmin, isUser, idUsuario }) => {
             }
 
             console.log(ticketData);
-            const response = await fetch(`http://localhost:3000/ticket/`, {
+            const response = await fetch(`${URL}/ticket/`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

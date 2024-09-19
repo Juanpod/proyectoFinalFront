@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const ActualizarCategoria = () => {
     const { idCategoria } = useParams();
@@ -10,16 +11,13 @@ const ActualizarCategoria = () => {
 
     const fetchCategoria = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/categoria/${idCategoria}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/categoria/${idCategoria}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -38,17 +36,14 @@ const ActualizarCategoria = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(
-                `http://localhost:3000/categoria/${idCategoria}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ nombreCategoria: categoria }),
-                }
-            );
+            const response = await fetch(`${URL}/categoria/${idCategoria}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ nombreCategoria: categoria }),
+            });
             const data = await response.json();
             if (!response.ok) {
                 console.log("Los datos son:", data);

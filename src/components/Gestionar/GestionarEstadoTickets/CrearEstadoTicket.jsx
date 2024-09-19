@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearEstadoTicket = () => {
     const navigate = useNavigate();
     const [estadoTicket, setEstadoTicket] = useState("");
@@ -10,7 +10,7 @@ const CrearEstadoTicket = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/estadoTicket", {
+            const response = await fetch(`${URL}/estadoTicket`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearTipoEquipo = () => {
     const navigate = useNavigate();
     const [tipoEquipo, setTipoEquipo] = useState("");
@@ -10,7 +10,7 @@ const CrearTipoEquipo = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/tiposEquipos", {
+            const response = await fetch(`${URL}/tiposEquipos`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

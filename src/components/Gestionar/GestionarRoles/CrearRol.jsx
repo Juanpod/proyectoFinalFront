@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearRol = () => {
     const navigate = useNavigate();
     const [rol, setRol] = useState("");
@@ -10,7 +10,7 @@ const CrearRol = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/rol", {
+            const response = await fetch(`${URL}/rol`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

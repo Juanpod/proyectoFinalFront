@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoRoles = () => {
     const navigate = useNavigate();
     const [roles, setRoles] = useState([]);
@@ -8,7 +8,7 @@ const ListadoRoles = () => {
 
     const fetchRoles = async () => {
         try {
-            const response = await fetch("http://localhost:3000/rol", {
+            const response = await fetch(`${URL}/rol`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -31,16 +31,13 @@ const ListadoRoles = () => {
     const handleDelete = async (idRol) => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/rol/${idRol}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await fetch(`${URL}/rol/${idRol}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (response.ok) {
                     setRoles(roles.filter((rol) => rol.idRol !== idRol));
                     setError(null);

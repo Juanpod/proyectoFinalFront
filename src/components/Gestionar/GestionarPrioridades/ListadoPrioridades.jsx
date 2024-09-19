@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoPrioridades = () => {
     const navigate = useNavigate();
     const [prioridades, setPrioridades] = useState([]);
@@ -8,7 +8,7 @@ const ListadoPrioridades = () => {
 
     const fetchPrioridades = async () => {
         try {
-            const response = await fetch("http://localhost:3000/prioridad", {
+            const response = await fetch(`${URL}/prioridad`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -32,7 +32,7 @@ const ListadoPrioridades = () => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/prioridad/${idPrioridad}`,
+                    `${URL}/prioridad/${idPrioridad}`,
                     {
                         method: "DELETE",
                         headers: {

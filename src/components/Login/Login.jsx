@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { verificarSesion } from "../verificarSesion/verificarSesion";
+import { URL } from "../../config";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const Login = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/login", {
+            const response = await fetch(`${URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -47,6 +48,7 @@ const Login = () => {
 
     useEffect(() => {
         console.log("Se carga Login");
+        console.log("URL", URL);
         if (verificarSesion(localStorage.getItem("token"))) {
             navigate("/home");
         }

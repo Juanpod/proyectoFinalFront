@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const CrearComuna = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const CrearComuna = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/comuna", {
+            const response = await fetch(`${URL}/comuna`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

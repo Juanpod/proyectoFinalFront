@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { URL } from "../../config";
 
 const DetalleComentario = ({ comentario }) => {
     const [tipoComentario, setTipoComentario] = useState("");
@@ -6,7 +7,7 @@ const DetalleComentario = ({ comentario }) => {
     const fetchTipoComentario = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/tipoComentario/${comentario.idTipoComentario}`,
+                `${URL}/tipoComentario/${comentario.idTipoComentario}`,
                 {
                     method: "GET",
                     headers: {

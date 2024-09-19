@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearSucursal = () => {
     const navigate = useNavigate();
     const [nombreSucursal, setNombreSucursal] = useState("");
@@ -11,7 +11,7 @@ const CrearSucursal = () => {
 
     const fetchComunas = async () => {
         try {
-            const response = await fetch("http://localhost:3000/comuna", {
+            const response = await fetch(`${URL}/comuna`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -35,7 +35,7 @@ const CrearSucursal = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3000/sucursal", {
+            const response = await fetch(`${URL}/sucursal`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

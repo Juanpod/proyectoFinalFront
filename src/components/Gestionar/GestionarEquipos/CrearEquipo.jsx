@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const CrearEquipo = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const CrearEquipo = () => {
 
     const fetchTiposEquipos = async () => {
         try {
-            const response = await fetch("http://localhost:3000/tiposEquipos", {
+            const response = await fetch(`${URL}/tiposEquipos`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -39,7 +40,7 @@ const CrearEquipo = () => {
 
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch("http://localhost:3000/usuario", {
+            const response = await fetch(`${URL}/usuario`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -73,7 +74,7 @@ const CrearEquipo = () => {
                 equipoData.idUsuario = idUsuario;
             }
             console.log(equipoData);
-            const response = await fetch("http://localhost:3000/equipo", {
+            const response = await fetch(`${URL}/equipo`, {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),

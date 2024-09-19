@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../config";
 
-const ActualizarTicket = () => {
+const ActualizarTicket = ({ isAdmin }) => {
     const { idTicket } = useParams();
     const navigate = useNavigate();
     const [asuntoTicket, setAsuntoTicket] = useState("");
@@ -23,16 +24,13 @@ const ActualizarTicket = () => {
 
     const fetchTicket = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/ticket/${idTicket}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/ticket/${idTicket}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -55,7 +53,7 @@ const ActualizarTicket = () => {
     };
     const fetchEstadosTickets = async () => {
         try {
-            const response = await fetch("http://localhost:3000/estadoTicket", {
+            const response = await fetch(`${URL}/estadoTicket`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -68,7 +66,16 @@ const ActualizarTicket = () => {
             }
             const data = await response.json();
             console.log("Los datos son:", data.data);
-            setEstadosTickets(data.data);
+            if (!isAdmin) {
+                const cerrado = 4;
+                setEstadosTickets(
+                    data.data.filter(
+                        (estado) => estado.idEstadoTicket !== cerrado
+                    )
+                );
+            } else {
+                setEstadosTickets(data.data);
+            }
         } catch (err) {
             console.log(err);
             setError(err.message);
@@ -76,7 +83,7 @@ const ActualizarTicket = () => {
     };
     const fetchPrioridades = async () => {
         try {
-            const response = await fetch("http://localhost:3000/prioridad", {
+            const response = await fetch(`${URL}/prioridad`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -97,7 +104,7 @@ const ActualizarTicket = () => {
     };
     const fetchCategorias = async () => {
         try {
-            const response = await fetch("http://localhost:3000/categoria", {
+            const response = await fetch(`${URL}/categoria`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -118,7 +125,7 @@ const ActualizarTicket = () => {
     };
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch("http://localhost:3000/usuario", {
+            const response = await fetch(`${URL}/usuario`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -169,17 +176,14 @@ const ActualizarTicket = () => {
             }
 
             console.log(ticketData);
-            const response = await fetch(
-                `http://localhost:3000/ticket/${idTicket}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(ticketData),
-                }
-            );
+            const response = await fetch(`${URL}/ticket/${idTicket}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(ticketData),
+            });
 
             const data = await response.json();
             if (!response.ok) {
@@ -204,6 +208,7 @@ const ActualizarTicket = () => {
 
     useEffect(() => {
         console.log("Se Monta Actualizar Ticket");
+        console.log("Es admin", isAdmin);
         fetchTicket();
         fetchCategorias();
         fetchPrioridades();

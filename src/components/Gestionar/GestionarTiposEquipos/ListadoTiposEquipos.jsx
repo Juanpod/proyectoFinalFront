@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoTipoEquipos = () => {
     const navigate = useNavigate();
     const [tiposEquipos, setTiposEquipos] = useState([]);
@@ -8,7 +8,7 @@ const ListadoTipoEquipos = () => {
 
     const fetchTiposEquipos = async () => {
         try {
-            const response = await fetch("http://localhost:3000/tiposEquipos", {
+            const response = await fetch(`${URL}/tiposEquipos`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -32,7 +32,7 @@ const ListadoTipoEquipos = () => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/tiposEquipos/${idTipoEquipo}`,
+                    `${URL}/tiposEquipos/${idTipoEquipo}`,
                     {
                         method: "DELETE",
                         headers: {

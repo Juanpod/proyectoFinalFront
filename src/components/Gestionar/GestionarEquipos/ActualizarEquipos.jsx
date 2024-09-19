@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const ActualizarEquipo = () => {
     const navigate = useNavigate();
@@ -19,16 +20,13 @@ const ActualizarEquipo = () => {
 
     const fetchEquipo = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/equipo/${idEquipo}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/equipo/${idEquipo}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -53,7 +51,7 @@ const ActualizarEquipo = () => {
 
     const fetchTiposEquipos = async () => {
         try {
-            const response = await fetch("http://localhost:3000/tiposEquipos", {
+            const response = await fetch(`${URL}/tiposEquipos`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -75,7 +73,7 @@ const ActualizarEquipo = () => {
 
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch("http://localhost:3000/usuario", {
+            const response = await fetch(`${URL}/usuario`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -109,17 +107,14 @@ const ActualizarEquipo = () => {
                 equipoData.idUsuario = idUsuario;
             }
             console.log(equipoData);
-            const response = await fetch(
-                `http://localhost:3000/equipo/${idEquipo}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(equipoData),
-                }
-            );
+            const response = await fetch(`${URL}/equipo/${idEquipo}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(equipoData),
+            });
 
             const data = await response.json();
             if (!response.ok) {

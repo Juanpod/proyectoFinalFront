@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { URL } from "../../../config";
 
 const ActualizarComuna = () => {
     const { idComuna } = useParams();
@@ -10,16 +11,13 @@ const ActualizarComuna = () => {
 
     const fetchComuna = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/comuna/${idComuna}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/comuna/${idComuna}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -38,17 +36,14 @@ const ActualizarComuna = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(
-                `http://localhost:3000/comuna/${idComuna}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ nombreComuna: comuna }),
-                }
-            );
+            const response = await fetch(`${URL}/comuna/${idComuna}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ nombreComuna: comuna }),
+            });
             const data = await response.json();
             if (!response.ok) {
                 console.log("Los datos son:", data);

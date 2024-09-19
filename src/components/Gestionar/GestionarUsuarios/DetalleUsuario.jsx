@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const DetalleUsuario = () => {
     const navigate = useNavigate();
     const { idUsuario } = useParams();
@@ -12,16 +12,13 @@ const DetalleUsuario = () => {
 
     const fetchUsuario = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/usuario/${idUsuario}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -41,16 +38,13 @@ const DetalleUsuario = () => {
 
     const fetchSucursal = async (idSucursal) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/sucursal/${idSucursal}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/sucursal/${idSucursal}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -66,7 +60,7 @@ const DetalleUsuario = () => {
 
     const fetchRol = async (idRol) => {
         try {
-            const response = await fetch(`http://localhost:3000/rol/${idRol}`, {
+            const response = await fetch(`${URL}/rol/${idRol}`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),

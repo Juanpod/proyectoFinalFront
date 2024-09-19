@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ActualizarUsuario = ({ isAdmin, isUser }) => {
     const { idUsuario } = useParams();
     const navigate = useNavigate();
@@ -21,16 +21,13 @@ const ActualizarUsuario = ({ isAdmin, isUser }) => {
 
     const fetchUsuario = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/usuario/${idUsuario}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -54,7 +51,7 @@ const ActualizarUsuario = ({ isAdmin, isUser }) => {
 
     const fetchSucursales = async () => {
         try {
-            const response = await fetch("http://localhost:3000/sucursal", {
+            const response = await fetch(`${URL}/sucursal`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -76,7 +73,7 @@ const ActualizarUsuario = ({ isAdmin, isUser }) => {
 
     const fetchRoles = async () => {
         try {
-            const response = await fetch("http://localhost:3000/rol", {
+            const response = await fetch(`${URL}/rol`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -111,17 +108,14 @@ const ActualizarUsuario = ({ isAdmin, isUser }) => {
             };
 
             console.log(usuarioData);
-            const response = await fetch(
-                `http://localhost:3000/usuario/${idUsuario}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(usuarioData),
-                }
-            );
+            const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(usuarioData),
+            });
 
             const data = await response.json();
             if (!response.ok) {

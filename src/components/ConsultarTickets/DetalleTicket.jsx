@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DetalleComentario from "../Comentarios/DetalleComentario";
 import CrearComentario from "../Comentarios/CrearComentario";
+import { URL } from "../../config";
 
 const DetalleTicket = ({ isUser }) => {
     const { idTicket } = useParams();
@@ -21,16 +22,13 @@ const DetalleTicket = ({ isUser }) => {
 
     const fetchTicket = async () => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/ticket/${idTicket}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/ticket/${idTicket}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -57,7 +55,7 @@ const DetalleTicket = ({ isUser }) => {
     const fetchEstadoTicket = async (idEstadoTicket) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/estadoTicket/${idEstadoTicket}`,
+                `${URL}/estadoTicket/${idEstadoTicket}`,
                 {
                     method: "GET",
                     headers: {
@@ -80,16 +78,13 @@ const DetalleTicket = ({ isUser }) => {
     };
     const fetchPrioridad = async (idPrioridad) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/prioridad/${idPrioridad}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/prioridad/${idPrioridad}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -104,16 +99,13 @@ const DetalleTicket = ({ isUser }) => {
     };
     const fetchCategoria = async (idCategoria) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/categoria/${idCategoria}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/categoria/${idCategoria}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -128,16 +120,13 @@ const DetalleTicket = ({ isUser }) => {
     };
     const fetchUsuarioCreador = async (idUsuario) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/usuario/${idUsuario}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -153,16 +142,13 @@ const DetalleTicket = ({ isUser }) => {
     };
     const fetchUsuarioResolutor = async (idUsuario) => {
         try {
-            const response = await fetch(
-                `http://localhost:3000/usuario/${idUsuario}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error("Error al obtener los datos");
@@ -178,7 +164,7 @@ const DetalleTicket = ({ isUser }) => {
     };
     const fetchComentarios = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/comentario/`, {
+            const response = await fetch(`${URL}/comentario/`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -208,7 +194,7 @@ const DetalleTicket = ({ isUser }) => {
     };
     const fetchEquipos = async (ticket) => {
         try {
-            const response = await fetch(`http://localhost:3000/equipo/`, {
+            const response = await fetch(`${URL}/equipo/`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),

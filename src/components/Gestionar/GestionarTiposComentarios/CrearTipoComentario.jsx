@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const CrearTipoComentario = () => {
     const navigate = useNavigate();
     const [tipoComentario, setTipoComentario] = useState("");
@@ -10,17 +10,14 @@ const CrearTipoComentario = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(
-                "http://localhost:3000/tipoComentario",
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ tipoComentario: tipoComentario }),
-                }
-            );
+            const response = await fetch(`${URL}/tipoComentario`, {
+                method: "POST",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ tipoComentario: tipoComentario }),
+            });
 
             const data = await response.json();
             if (!response.ok) {

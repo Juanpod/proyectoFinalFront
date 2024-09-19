@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ListadoUsuarios = () => {
     const navigate = useNavigate();
     const [usuarios, setUsuarios] = useState([]);
@@ -9,7 +9,7 @@ const ListadoUsuarios = () => {
 
     const fetchUsuarios = async () => {
         try {
-            const response = await fetch("http://localhost:3000/usuario", {
+            const response = await fetch(`${URL}/usuario`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -32,16 +32,13 @@ const ListadoUsuarios = () => {
     const handleDelete = async (idUsuario) => {
         if (window.confirm("¿Estás seguro de eliminar este elemento?")) {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/usuario/${idUsuario}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await fetch(`${URL}/usuario/${idUsuario}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (response.ok) {
                     setUsuarios(
                         usuarios.filter(
@@ -60,7 +57,7 @@ const ListadoUsuarios = () => {
     };
     const fetchRoles = async () => {
         try {
-            const response = await fetch("http://localhost:3000/rol", {
+            const response = await fetch(`${URL}/rol`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),

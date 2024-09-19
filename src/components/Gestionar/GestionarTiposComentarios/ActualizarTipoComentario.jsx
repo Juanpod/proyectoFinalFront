@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { URL } from "../../../config";
 const ActualizarTipoComentario = () => {
     const { idTipoComentario } = useParams();
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ActualizarTipoComentario = () => {
     const fetchTipoComentario = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/tipoComentario/${idTipoComentario}`,
+                `${URL}/tipoComentario/${idTipoComentario}`,
                 {
                     method: "GET",
                     headers: {
@@ -39,7 +39,7 @@ const ActualizarTipoComentario = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/tipoComentario/${idTipoComentario}`,
+                `${URL}/tipoComentario/${idTipoComentario}`,
                 {
                     method: "PUT",
                     headers: {

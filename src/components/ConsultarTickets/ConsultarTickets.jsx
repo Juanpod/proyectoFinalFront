@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import ListadoTickets from "./ListadoTickets";
 import ActualizarTicket from "./ActualizarTicket";
 import DetalleTicket from "./DetalleTicket";
+
 const ConsultarTickets = ({ isAdmin, isUser, idUsuario }) => {
     const navigate = useNavigate();
     useEffect(() => {
@@ -25,7 +26,10 @@ const ConsultarTickets = ({ isAdmin, isUser, idUsuario }) => {
                     />
                 }
             />
-            <Route path="actualizar/:idTicket" element={<ActualizarTicket />} />
+            <Route
+                path="actualizar/:idTicket"
+                element={<ActualizarTicket isAdmin={isAdmin} />}
+            />
 
             <Route
                 path="detalle/:idTicket"
